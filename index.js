@@ -9,6 +9,10 @@ const levels = [
   require('./puzzles/number'),
   require('./puzzles/hidden'),
   require('./puzzles/code'),
+  require('./puzzles/early'),
+  require('./puzzles/catch'),
+  require('./puzzles/silence'),
+  require('./puzzles/caged'),
 ]
 
 const encodeSave = level => 
@@ -38,16 +42,17 @@ const initLevel = (self, num) => {
   const level = levels[num - 1]
   if (!level) return
   const levelAttr = `level${num}`
-  level.before && level.before(self)
   const opts = {
     self,
+    repl: repl.repl,
     onComplete() {
-      level.after && level.after(self)
+      level.after && level.after(opts)
       delete self[levelAttr]
       save(num + 1)
       initLevel(self, num + 1)
     }
   }
+  level.before && level.before(opts)
   self[levelAttr] = function(answer) { return levels[num - 1].run(answer, opts) }
 }
 
@@ -55,7 +60,7 @@ const _userName = process.env.USER || 'Stranger'
 const userName = `${_userName[0].toUpperCase()}${_userName.slice(1)}`
 
 const start = () => {
-  if (process.mainModule) {
+  if (typeof repl === 'undefined') {
     console.log('Please import this module directly from a Node REPL, e.g. \nrun `node` in your terminal and type `const puzzle = require(\'a-small-puzzle\')`')
     process.exit()
   } else {
@@ -70,8 +75,7 @@ module.exports = {
   start() {
     console.log('Puzzle initializing...')
     delete this.start
-    const level = load()
-    console.log('level', level)
+    const level = 10 || load()
     initLevel(this, level)
     console.log('Initialized!')
     return 'Go ahead and start with level1()'

@@ -4,7 +4,7 @@ let tries = 0
 let min = 0
 let max = 32
 module.exports =  {
-  before(self) {
+  before({self}) {
     self.mind = '**Protected by a tinfoil hat**'
   },
 

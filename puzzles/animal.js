@@ -8,7 +8,7 @@ const resetMind = (self) => {
 }
 
 module.exports =  {
-  before(self) {
+  before({self}) {
     resetMind(self)
   },
 

@@ -16,12 +16,12 @@ const resetMind = (self) => {
 
 const format = (answer) => answer && answer.toLowerCase ? answer.toLowerCase() : null
 module.exports =  {
-  before(self) {
+  before({self}) {
     wins = 0
     resetMind(self)
   },
 
-  after(self) {
+  after({self}) {
     delete self.mind
   },
 

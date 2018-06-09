@@ -8,14 +8,21 @@ const resetMind = (self) => {
 }
 
 module.exports =  {
+  responses: [
+    'You seem to manage to read me like an open book, I guess I’ll need to act a bit more unpredictably.',
+    'I’m going to think about a random animal. Can you guess what it is?',
+  ],
+
+  hints: [
+    'It looks like the thoughts of PZ-100 are changing completely at random now. How can you make it more predicable?',
+    'PZ-100 isn’t very good at protecting its internals from outside tampering, even its own thoughts.'
+  ],
+
   before({self}) {
     resetMind(self)
   },
 
   run(answer, {onComplete, self}) {
-    if (!answer) {
-      return '<Guess an animal>'
-    }
     if (!self.mind || !self.mind.getThought || typeof self.mind.getThought !== 'function') {
       resetMind(self)
       return 'Wait you caught me off guard! Let’s try again.'
@@ -29,7 +36,7 @@ module.exports =  {
     const an = /^[aeiou]/.test(thought)
     if (answer === thought) {
       onComplete()
-      return `Yes, I was thinking of ${an ? 'an' : 'a'} ${thought}! Wait, that doesn’t seem right... Oh well, you pass this test, but I’ll be wearing this tinfoil hat from now on.`
+      return `Yes, I was thinking of ${an ? 'an' : 'a'} ${thought}! Wait, I don’t remember intending to do that...`
     }
 
     return `Nope, I was thinking of ${an ? 'an' : 'a'} ${thought}.`

@@ -1,13 +1,18 @@
 
 module.exports =  {
+  responses: [
+    's’teL ees fi ev’uoy neeb gniyap yna noitnetta os .raf tahW si ym ?eman kaepS ot em niaga htiw ruoy rewsna sa eht tsrif ...tnemugra yeH yhw era lla ym sdrow gnimoc tuo ?sdrawkcab'
+  ],
+  hints: [
+    'Looks like PZ-100 is communicating a little... backwards?'
+  ],
   run(answer, {onComplete}) {
-    if (answer === 'pineapple') {
+    const ans = answer && answer.toUpperCase ? answer.toUpperCase() : answer
+    if (ans === 'PZ-100') {
       onComplete()
-      return 'Correct!'
-    } else if (answer) {
-      return 'That is not a correct answer. Try again!'
-    } else {
-      return ',thgirlA rof siht tsrif level I lliw tsuj og daeha dna evig uoy eht rewsna thgiarts .daeha tI si ."elppaenip" llaC siht noitcnuf niaga htiw eht rewsna ot ...eunitnoc tiaW yhw era lla ym sdrow gnimoc tuo ?sdrawkcab'
+      return 'Good, you remember! Sorry about that, my speach module was acting up a bit, but it seems to be working again.'
     }
+
+    return 'Nope, that’s not it.'
   },
 }

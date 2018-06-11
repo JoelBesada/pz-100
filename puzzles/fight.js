@@ -36,7 +36,7 @@ const die = ({repl, require}) => {
 }
 
 let createdWeapon
-module.exports =  {
+export default  {
   responses: [
     'Hey, how did you get out!? Oh you’ve made a big mistake coming back here...'
   ],

@@ -1,23 +1,39 @@
-const fs = require('fs')
-const path = require('path')
-const animals = require('./assets/animals.json')
+import fs from 'fs'
+import path from 'path'
+import animals from './assets/animals'
+
+import levelBackwards from './puzzles/backwards'
+import levelContinue from './puzzles/continue'
+import levelRPS from './puzzles/rps'
+import levelAnimal from './puzzles/animal'
+import levelMindControl from './puzzles/mindcontrol'
+import levelNumber from './puzzles/number'
+import levelCatch from './puzzles/catch'
+import levelHidden from './puzzles/hidden'
+import levelCode from './puzzles/code'
+import levelEarly from './puzzles/early'
+import levelPunch from './puzzles/punch'
+import levelSilence from './puzzles/silence'
+import levelPunchAgain from './puzzles/punchagain'
+import levelCaged from './puzzles/caged'
+import levelFight from './puzzles/fight'
 
 const levels = [
-  require('./puzzles/backwards'),
-  require('./puzzles/continue'),
-  require('./puzzles/rps'),
-  require('./puzzles/animal'),
-  require('./puzzles/mindcontrol'),
-  require('./puzzles/number'),
-  require('./puzzles/catch'),
-  require('./puzzles/hidden'),
-  require('./puzzles/code'),
-  require('./puzzles/early'),
-  require('./puzzles/punch'),
-  require('./puzzles/silence'),
-  require('./puzzles/punchagain'),
-  require('./puzzles/caged'),
-  require('./puzzles/fight'),
+  levelBackwards,
+  levelContinue,
+  levelRPS,
+  levelAnimal,
+  levelMindControl,
+  levelNumber,
+  levelCatch,
+  levelHidden,
+  levelCode,
+  levelEarly,
+  levelPunch,
+  levelSilence,
+  levelPunchAgain,
+  levelCaged,
+  levelFight,
 ]
 
 const encodeSave = level => 
@@ -32,12 +48,13 @@ const decodeSave = level => {
 
 const save = (level) => {
   const data = encodeSave(level)
-  fs.writeFileSync(path.relative(__dirname, 'progress.sav'), data, 'utf-8')
+  fs.writeFileSync(path.join(__dirname, 'progress.sav'), data, 'utf-8')
 }
 
 const load = (level) => {
+  return 8
   try {
-    return decodeSave(fs.readFileSync(path.relative(__dirname, 'progress.sav'), 'utf-8'))
+    return decodeSave(fs.readFileSync(path.join(__dirname, 'progress.sav'), 'utf-8'))
   } catch (e) {
     return 1
   }
@@ -59,8 +76,13 @@ const setupCommands = () => {
     action() {
       const level = levels[currentLevel - 1]
       const hint = level.hints[currentHint]
-      console.log(`Hint ${currentHint + 1}/${level.hints.length}: ${hint}`)
-      currentHint = (currentHint + 1) % level.hints.length
+      const readAllResponses = currentResponse === level.responses.length
+      if (!readAllResponses) {
+        console.log(`No hints currently available, speak to PZ-100 first.`)
+      } else {
+        console.log(`Hint ${currentHint + 1}/${level.hints.length}: ${hint}`)
+        currentHint = (currentHint + 1) % level.hints.length
+      }
       this.clearBufferedCommand()
       this.displayPrompt()
     }
@@ -156,8 +178,13 @@ const _speak = (self, answer) => {
   return level.run.call(self, answer, opts)
 }
 
-module.exports = {
-  speak(answer) {
+const exp = {}
+Object.defineProperty(exp, 'speak', {
+  value(answer) {
     return _speak(this, answer)
-  }
-}
+  },
+  writable: false,
+  enumerable: true,
+})
+
+module.exports = exp

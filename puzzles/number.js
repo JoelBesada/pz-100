@@ -1,9 +1,9 @@
-const animals = require('../assets/animals.json') 
+import animals from '../assets/animals'
 
 let tries = 0
 let min = 0
 let max = 32
-module.exports =  {
+export default  {
   responses: [
     'Well now you know how that feels.',
     'No more mind tampering, I’ve restricted your access. Let’s see how well you can read my intentions now.',

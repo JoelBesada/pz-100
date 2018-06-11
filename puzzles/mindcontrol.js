@@ -1,6 +1,6 @@
 const command = '.hitYourself'
 let slice = 0
-module.exports =  {
+export default  {
   responses: [
     'Hey, have you been messing with my mind module? That’s not fair at all, let’s see how you feel about being tampered with like that.'
   ],

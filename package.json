@@ -1,0 +1,13 @@
+{
+  "name": "a-small-puzzle",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "uglify-js": "^3.4.0"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}

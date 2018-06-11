@@ -3,7 +3,7 @@ const startYear = new Date().getFullYear()
 const responses = [
   'Okay, where were we. Right, enjoying each other’s company!'
 ]
-module.exports =  {
+export default  {
   responses,
   hints: [
     'Haven’t you already been in this situation?',

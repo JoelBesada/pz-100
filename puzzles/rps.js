@@ -15,7 +15,7 @@ const resetMind = (self) => {
 }
 
 const format = (answer) => answer && answer.toLowerCase ? answer.toLowerCase() : null
-module.exports =  {
+export default  {
   responses: [
     'How about a simple game of rock, paper, scissors? Speak to me with your choice, let’s see if you can beat me five times in a row.'
   ],

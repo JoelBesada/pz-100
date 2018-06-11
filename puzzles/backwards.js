@@ -1,5 +1,5 @@
 
-module.exports =  {
+export default  {
   responses: [
     's’teL ees fi ev’uoy neeb gniyap yna noitnetta os .raf tahW si ym ?eman kaepS ot em niaga htiw ruoy rewsna sa eht tsrif ...tnemugra yeH yhw era lla ym sdrow gnimoc tuo ?sdrawkcab'
   ],

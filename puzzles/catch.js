@@ -4,7 +4,7 @@ const onError = (err) => {
 
 let thrown = false
 
-module.exports =  {
+export default  {
   responses: [],
   hints: [
     'You should try catch that. Pun intended.'
@@ -23,7 +23,7 @@ module.exports =  {
     repl.eval.domain.addListener('error', onError)
     const error = new Error('Process-killing Ball')
     error.killProcess = true
-    console.log('Well aren’t you clever... Think fast!')
+    console.log('Well aren’t you clever... Catch this!')
     thrown = true
     throw error
   },

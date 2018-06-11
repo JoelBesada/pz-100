@@ -5,15 +5,12 @@ const responses = [
 ]
 let currentResponse = 0
 
-module.exports =  {
+export default  {
   responses: [
     'That’s it. I’m going to have to silence you altogether now, since removing your scripting abilities didn’t seem like enough of a lesson.'
   ],
   hints: [],
   before({onComplete, repl}) {
-    process.on('SIGTERM', () => {
-      console.log('Ouch, that hurt!')
-    })
     process.stdin.pause()
     setTimeout(() => {}, 9999999)
     const tick = () => {

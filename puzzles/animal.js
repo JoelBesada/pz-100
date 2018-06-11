@@ -1,4 +1,4 @@
-const animals = require('../assets/animals.json') 
+import animals from '../assets/animals'
 
 const _getThought = () => animals[Math.floor(Math.random() * animals.length)] 
 const resetMind = (self) => {
@@ -7,7 +7,7 @@ const resetMind = (self) => {
   }
 }
 
-module.exports =  {
+export default  {
   responses: [
     'You seem to manage to read me like an open book, I guess I’ll need to act a bit more unpredictably.',
     'I’m going to think about a random animal. Can you guess what it is?',

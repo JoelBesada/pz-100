@@ -1,4 +1,4 @@
-[
+export default [
 "aardvark",
 "albatross",
 "alligator",

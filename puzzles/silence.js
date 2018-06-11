@@ -9,7 +9,7 @@ const responses = [
 ]
 let currentResponse = -1
 
-module.exports =  {
+export default  {
   responses: [
     'That was very rude. Very rude indeed. You know there’s consequences to being rude like that.'
   ],

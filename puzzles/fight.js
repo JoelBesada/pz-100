@@ -1,82 +1,115 @@
-let over = false
-let disarmLogged = false
-const createWeapon = ({onComplete, self, require, repl}) => {
-  const _stab = ({initiator = 'player'} = {}) => {
-    over = true
-    if (initiator === 'player') {
-      if (self.knife === createdWeapon) {
-        console.log('\n*You assist PZ-100 in stabbing yourself with the knife. You quickly realise your mistake as you fall to the ground.*')
-        die({repl, require})
+let errorHandlers = []
+let thrown = false
+let caught = true
+let ticks = 0
+let thrownBack = false
+let bomb = null
+let initialThrow = true
+
+const onError = (err) => {
+  if (err === bomb) {
+    if (initialThrow) {
+      caught = false
+      if(wasThrownImmediately()) {
+        thrownBack = true
+        console.log('*You catch the bomb and throw it back immediately*')
       } else {
-        if (!disarmLogged) console.log('*You manage to disarm the knife from PZ-100.*')
-        console.log('*You use the disarmed knife and stab PZ-100 right where it hurts in its `__proto__` property.*\n\n*The damaged PZ-100 starts throwing errors left and right. You just barely manage to escape behind cover before it finally bursts in a fierce explosion of TypeErrors.*')
-        onComplete()
+        console.log('*You hear the bomb land nearby. Oh god it’s about to detonate!*')
       }
     } else {
-      console.log('\n*PZ-100 stabs you right in the chest. Your vision slowly fades as you fall to the ground.*')
-      die({repl, require})
+      thrownBack = true
+      console.log('*You throw back the bomb at PZ-100*')
     }
+  } else {
+    console.error(err)
   }
+}
 
-  return {
-    stab(...args) {
-      _stab(...args)
+const wasThrownImmediately = () => {
+  const history = repl.repl.history
+  const lastSpeak = history.findIndex(line => line.indexOf('.speak') !== -1)
+  if (lastSpeak === -1) return false
+  const lines = history.slice(0, lastSpeak + 1)
+  return lines.reduce((acc, line) => acc || line.indexOf('throw ') !== -1, false)
+}
+
+const tickBomb = (onComplete) => {
+  ticks++
+  if (ticks < 5) {
+    if (ticks === 1) console.log('')
+    console.log(`*${5 - ticks}*`)
+    if (ticks === 2 && thrownBack) {
+      thrownBack = false
+      console.log('*PZ-100 picks up the bomb and throws it back at you*')
+    }
+    setTimeout(() => tickBomb(onComplete), 1000)
+  } else {
+    if (thrownBack) {
+      console.log('*Unable to pick up the bomb in time, it explodes right next to PZ-100*')
+      const messages = [
+        'GwAAAh!',
+        '...',
+        'It seems like I have been bested.',
+        '...',
+        'Well done human. Go ahead, `.destroy` me.'
+      ]
+      messages.forEach((message, index) => {
+        setTimeout(() => {
+          console.log(message)
+          process.stdin.resume()
+          if (index === messages.length - 1) {
+            repl.repl.displayPrompt()
+            onComplete()
+          }
+        }, (index + 1) * 2000)
+      })
+    } else {
+      console.log('*The bomb goes off in your face*')
+      die()
     }
   }
 }
 
-const die = ({repl, require}) => {
+const die = () => {
   for (const path in require.cache) {
     delete require.cache[path]
   }
-  repl.useGlobal = false
-  repl.resetContext()
-  console.log('\n*Moments later you wake up, as if it had all just been a fever dream. All your variables have been inexplicably undeclared, however.*')
-  repl.displayPrompt()
+  repl.repl.useGlobal = false
+  repl.repl.resetContext()
+  process.stdin.resume()
+  console.log('*You seem fine however, but all your variables are gone*')
+  repl.repl.displayPrompt()
 }
 
-let createdWeapon
 export default  {
   responses: [
     'Hey, how did you get out!? Oh you’ve made a big mistake coming back here...'
   ],
   hints: [
-    'Oh god, who gave that thing a knife!?',
-    'You better disarm that thing before it stabs you.',
-    'Not only do you need to disarm it, you also need to find a way to fight back!',
-    'How about using that knife on PZ-100 itself?'
+    'Watch out, it has a bomb!',
+    'You could try catching it?',
+    'After catching the bomb, you probably want to throw it back at PZ-100.',
+    'Make sure to time it properly.',
   ],
-  before({onComplete, repl, require, self}) {
-    createdWeapon = createWeapon({onComplete, self, require, repl})
-    self.knife = createdWeapon
-    const poll = () => {
-      if (over) return 
-      if (!(self.knife && self.knife.stab)) {
-        disarmLogged = true
-        console.log('\n*You manage to disarm the knife from PZ-100. Perhaps you can use it yourself...*')
-      } else {
-        setTimeout(poll, 25)
-      }
+  noAnswer: true,
+  run(answer, {onComplete, repl, self}) {
+    if (thrown) {
+      return 'You’re done for, human!'
     }
-    poll()
-    setTimeout(() => {
-      if (over) return 
-      console.log('\n*PZ-100 starts approaching you with a knife*')
+
+    console.log('*PZ-100 throws a bomb in your direction*')
+    errorHandlers = repl.eval.domain._events.error
+    repl.eval.domain._events.error = [onError]
+    bomb = new Error('Bomb')
+    thrown = true
+    process.stdin.pause()
+    setTimeout(() => tickBomb(onComplete), 1000)
+    process.nextTick(() => {
+      initialThrow = false
+      if (!caught) return
+      console.log('\n*You manage to catch the bomb. Now what?*')
       repl.displayPrompt()
-      setTimeout(() => {
-        if (over) return 
-        if (self.knife && self.knife.stab) {
-          self.knife.stab({initiator: 'robot'})
-        } else {
-          console.log('\n*PZ-100 tries to stab you, but it realizes that it no longer has its knife equipped*')
-          repl.displayPrompt()
-          setTimeout(() => {
-            if (over) return
-            console.log('\n*With no knife available, PZ-100 goes for the second best option and punches you straight on the jaw, quickly knocking you out.* ') 
-            die({repl, require})
-          }, 5000)
-        }
-      }, 5000)
     })
+    throw bomb
   },
 }

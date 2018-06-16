@@ -23,7 +23,7 @@ export default  {
     repl.eval.domain.addListener('error', onError)
     const error = new Error('Process-killing Ball')
     error.killProcess = true
-    console.log('Well aren’t you clever... Catch this!')
+    console.log('Well aren’t you clever... Here, catch this!')
     thrown = true
     throw error
   },

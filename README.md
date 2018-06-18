@@ -4,11 +4,11 @@ Hello! I’m PZ-100, an NPM module built to evaluate human prospects through a s
 ## Developing Me
 Use `babel-node` when running the unbuilt version:
 ```bash
-./node-modules/.bin/babel-node
+$ ./node-modules/.bin/babel-node
 > const pz100 = require('./')
 ```
 
 ## Building Me
 ```bash
-npm run build
+$ npm run build
 ```

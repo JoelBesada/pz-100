@@ -1,7 +1,8 @@
 const startYear = new Date().getFullYear()
 
 const responses = [
-  'Okay, where were we. Right, enjoying each other’s company!'
+  'Okay, where were we. Right, enjoying each other’s company!',
+  '...',
 ]
 export default  {
   responses,
@@ -18,6 +19,6 @@ export default  {
   },
   noAnswer: true,
   run(answer, {onComplete}) {
-    return responses[0]
+    return responses[1]
   },
 }

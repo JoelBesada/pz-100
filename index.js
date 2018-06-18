@@ -102,6 +102,9 @@ const start = () => {
     process.exit()
   } else {
     setupCommands()
+    if (currentLevel === levels.length) {
+      console.log('Hey, how did you get out!? Oh you’ve made a big mistake coming back here...')
+    } else {
     console.log(`
 Hello there ${userName}! I’m PZ-100, an NPM module built to evaluate 
 human prospects through a set of puzzling challenges. Whenever you 
@@ -111,25 +114,30 @@ If you ever get stuck you can use the terminal command \`.hint\`
 to receive a small hint. And don’t worry, if you need to go do 
 something else you can always come back later, your progress is 
 automatically saved.`)
+    }
   }
 }
 
 const rollCredits = () => {
   console.log(`
-You have destroyed PZ-100. Well done!
+####################################################
 
-This experience was designed and built by
-Joel Besada, who would love it if you followed 
-him on Twitter: https://twitter.com/JoelBesada.
+  You have destroyed PZ-100. Well done!
+
+  This experience was designed and built by
+  Joel Besada, who would love it if you followed 
+  him on Twitter: https://twitter.com/JoelBesada.
+
+####################################################
 `)
   process.exit()
 }
 
-start()
 
 let currentLevel = load()
 let currentResponse = 0
 let currentHint = 0
+start()
 
 const _speak = (self, answer) => {
   const level = levels[currentLevel - 1]

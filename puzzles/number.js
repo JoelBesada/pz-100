@@ -39,10 +39,10 @@ export default  {
     }
 
     if (answer < min) {
-      return `I've already told you the number is greater than ${min}...` 
+      return `I’ve already told you the number is greater than ${min - 1}...` 
     }
     if (answer > max) {
-      return `I've already told you the number is less than ${max}...` 
+      return `I’ve already told you the number is less than ${max + 1}...` 
     }
     
     const mid = min + (max - min) / 2

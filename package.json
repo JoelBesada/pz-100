@@ -16,7 +16,8 @@
     "rollup": "rollup index.js --file dist/index.js --format cjs",
     "obfuscate": "javascript-obfuscator dist/index.js --output dist/index.js",
     "add-const": "echo 'const LET_HUMAN_PASS = false;' | cat - dist/index.js > dist/index.js.tmp && mv dist/index.js.tmp dist/index.js",
-    "build": "npm run rollup && npm run obfuscate && npm run add-const"
+    "copy-files": "cp package.json dist/package.json",
+    "build": "npm run rollup && npm run obfuscate && npm run add-const && npm run copy-files"
   },
   "dependencies": {},
   "devDependencies": {

@@ -29,7 +29,9 @@ export default  {
   run(answer, {self, repl, onComplete}) {
     let res
     try {
+      /* javascript-obfuscator:disable */
       res = this.continue()
+      /* javascript-obfuscator:enable */
     } catch (err) {
       console.error(err)
       return '... Or not. What happened to my `continue` method?'

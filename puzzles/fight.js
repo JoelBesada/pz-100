@@ -49,7 +49,7 @@ const tickBomb = (onComplete) => {
       const messages = [
         'GwAAAh!',
         '...',
-        'It seems like I have been bested.',
+        'It seems I have been bested.',
         '...',
         'Well done human. Go ahead, `.destroy` me.'
       ]
@@ -83,7 +83,7 @@ const die = () => {
 
 export default  {
   responses: [
-    'Hey, how did you get out!? Oh you’ve made a big mistake coming back here...'
+    'You’re done for, human!',
   ],
   hints: [
     'Watch out, it has a bomb!',

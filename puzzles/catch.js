@@ -7,7 +7,7 @@ let thrown = false
 export default  {
   responses: [],
   hints: [
-    'You should try catch that. Pun intended.'
+    'You should try catching that. Pun intended.'
   ],
   
   after({repl}) {

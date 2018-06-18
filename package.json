@@ -1,13 +1,28 @@
 {
-  "name": "a-small-puzzle",
-  "version": "0.0.0",
+  "name": "pz-100",
+  "description": "Hello! I’m PZ-100, an NPM module built to evaluate human prospects through a set of puzzling challenges. Do you think you have what it takes?",
+  "keywords": [
+    "puzzle",
+    "game",
+    "challenge",
+    "programming",
+    "coding"
+  ],
+  "version": "1.0.0-beta",
+  "author": "Joel Besada (joel.be)",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
-    "uglify-js": "^3.4.0"
+  "scripts": {
+    "rollup": "rollup index.js --file dist/index.js --format cjs",
+    "obfuscate": "javascript-obfuscator dist/index.js --output dist/index.js",
+    "add-const": "echo 'const LET_HUMAN_PASS = false;' | cat - dist/index.js > dist/index.js.tmp && mv dist/index.js.tmp dist/index.js",
+    "build": "npm run rollup && npm run obfuscate && npm run add-const"
   },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1"
+    "babel-preset-es2015": "^6.24.1",
+    "javascript-obfuscator": "^0.16.0",
+    "rollup": "^0.60.7"
   }
 }

@@ -52,7 +52,6 @@ const save = (level) => {
 }
 
 const load = (level) => {
-  return 15
   try {
     return decodeSave(fs.readFileSync(path.join(__dirname, 'progress.sav'), 'utf-8'))
   } catch (e) {
@@ -99,7 +98,7 @@ const setupCommands = () => {
 
 const start = () => {
   if (typeof repl === 'undefined') {
-    console.log('Please import this module directly from a Node REPL, e.g. \nrun `node` in your terminal and type `const puzzle = require(\'a-small-puzzle\')`')
+    console.log('Please import this module directly from a Node REPL, e.g. \nrun `node` in your terminal and type `const puzzle = require(\'pz-100\')`')
     process.exit()
   } else {
     setupCommands()
@@ -119,7 +118,7 @@ const rollCredits = () => {
   console.log(`
 You have destroyed PZ-100. Well done!
 
-This experience was built and designed by
+This experience was designed and built by
 Joel Besada, who would love it if you followed 
 him on Twitter: https://twitter.com/JoelBesada.
 `)

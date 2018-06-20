@@ -82,7 +82,6 @@ const setupCommands = () => {
         console.log(`Hint ${currentHint + 1}/${level.hints.length}: ${hint}`)
         currentHint = (currentHint + 1) % level.hints.length
       }
-      this.clearBufferedCommand()
       this.displayPrompt()
     }
   })
@@ -90,7 +89,6 @@ const setupCommands = () => {
     help: 'Why would you do that?',
     action() {
       console.log('*You punch yourself in the face. Ouch!*')
-      this.clearBufferedCommand()
       this.displayPrompt()
     }
   })
@@ -141,7 +139,7 @@ start()
 
 const _speak = (self, answer) => {
   const level = levels[currentLevel - 1]
-  if (!level) return 'Just `.destroy` me already.'
+  if (!level) return 'Just `destroy()` me already.'
   const readAllResponses = currentResponse === level.responses.length
 
   const opts = {

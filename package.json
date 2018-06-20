@@ -8,10 +8,14 @@
     "programming",
     "coding"
   ],
-  "version": "1.0.0-beta",
+  "repository": "https://github.com/JoelBesada/pz-100",
+  "version": "1.0.0",
   "author": "Joel Besada (joel.be)",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "rollup": "rollup index.js --file dist/index.js --format cjs",
     "obfuscate": "javascript-obfuscator dist/index.js --output dist/index.js",

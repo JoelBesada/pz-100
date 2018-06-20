@@ -16,7 +16,6 @@ export default  {
 
     const poll = () => {
       if (self.continue === fn) {
-        repl.clearBufferedCommand()
         console.log('\nAh, you fixed it!')
         repl.displayPrompt()
       } else {

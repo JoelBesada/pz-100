@@ -51,7 +51,7 @@ const tickBomb = (onComplete) => {
         '...',
         'It seems I have been bested.',
         '...',
-        'Well done human. Go ahead, `.destroy` me.'
+        'Well done human. Go ahead, `destroy()` me.'
       ]
       messages.forEach((message, index) => {
         setTimeout(() => {

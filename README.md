@@ -1,5 +1,5 @@
 # PZ-100
-![](https://cdn.pbrd.co/images/HqMehIf.png)
+![](https://cdn.pbrd.co/images/HqMh505.png)
 
 ## Developing Me
 Use `babel-node` when running the unbuilt version:

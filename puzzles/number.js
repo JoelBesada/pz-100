@@ -1,17 +1,17 @@
 import animals from '../assets/animals'
 
 let tries = 0
-let min = 0
-let max = 32
+let min = 1
+let max = 31
 export default  {
   responses: [
     'Well now you know how that feels.',
     'No more mind tampering, I’ve restricted your access. Let’s see how well you can read my intentions now.',
-    'I’m going to think of an integer between 0 and 32. You get five tries to guess what it is, and I’ll let you know if you’re over or under on each guess.',
+    'I’m going to think of an integer above 0 and below 32. You get five tries to guess what it is, and I’ll let you know if you’re over or under on each guess.',
   ],
   hints: [
     'Perhaps there’s a way to reduce the number of possible integers to only be one after your five tries.',
-    'An integer between 0 and 32, and you only get five tries. Maybe it’s not a complete coincidence that 32 can only be halved five times before becoming less than one.',
+    'An integer above 0 and below 32, and you only get five tries. Maybe it’s not a complete coincidence that 32 can only be halved five times before becoming less than one.',
     'Have you tried guessing in the middle?'
   ],
 
@@ -32,8 +32,8 @@ export default  {
 
     if (tries === 5) {
       const thoughtOf = min + Math.round(Math.random() * (max - min))
-      min = 0
-      max = 32
+      min = 1
+      max = 31
       tries = 0
       return `That’s incorrect, and you’re out of tries! I was thinking of the number ${thoughtOf} by the way. Well, let’s start over with a new one.`
     }
